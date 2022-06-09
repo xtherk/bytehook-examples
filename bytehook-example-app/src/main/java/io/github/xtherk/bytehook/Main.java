@@ -28,7 +28,10 @@ public class Main {
     }
 
     /**
-     * Please add VM option <code>-javaagent:/your/path/bytehook-agent.jar</code>
+     * Please add VM option <code>-javaagent:/your/path/bytehook-agent.jar -Dbh.agent.init.disabled=true</code>
+     * <p>
+     * <code>-Dbh.agent.init.disabled=true</code> <br>
+     * The purpose of disable the initialization of java agent is to add module resource paths in the dev-env
      */
     public static void main(String[] args) {
         while (!Modules.initialized) {
