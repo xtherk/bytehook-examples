@@ -6,7 +6,7 @@ package io.github.xtherk.bytehook.example;
 public class Example3 {
 
     public void sayAnything(String anything) {
-        System.out.println("say " + anything);
+        System.out.println("Say " + anything);
     }
 
 }

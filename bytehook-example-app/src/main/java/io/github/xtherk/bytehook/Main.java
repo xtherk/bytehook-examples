@@ -34,9 +34,11 @@ public class Main {
      * The purpose of disable the initialization of java agent is to add module resource paths in the dev-env
      */
     public static void main(String[] args) {
-        while (!Modules.initialized) {
-            ThreadUtil.quietSleep(5);
-        }
+        // Just to wait for the initialization
+        // It's also possible to remove
+        // while (!Modules.initialized) {
+        //     ThreadUtil.quietSleep(5);
+        // }
         Example1.sayHello();
         // Maybe will print Hi Lily,
         // Maybe will print Hello Lily
