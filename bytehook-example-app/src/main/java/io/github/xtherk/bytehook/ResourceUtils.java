@@ -16,7 +16,12 @@ public class ResourceUtils {
     }
 
     public static Path getByteHookModulePath(String moduleName) throws FileNotFoundException {
-        Path target = getMavenModulePath(moduleName).resolve("target");
+        Path mavenModulePath = getMavenModulePath(moduleName);
+        //  There is no existence in non-development environment
+        if (!Files.exists(mavenModulePath)) {
+            return null;
+        }
+        Path target = mavenModulePath.resolve("target");
         if (Files.exists(target)) {
             return target.resolve("classes");
         }

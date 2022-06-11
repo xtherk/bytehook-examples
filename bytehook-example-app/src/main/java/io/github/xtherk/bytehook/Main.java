@@ -16,11 +16,27 @@ public class Main {
     private static final String BYTEHOOK_EXAMPLE_MODULE_NAME = "bytehook-example-module";
 
     static {
+        initialize();
+    }
+
+    /**
+     * In fact, it is not necessary to initialize the modules in the application.
+     * It should be initialized by agent.
+     * This is just to facilitate the demo.
+     */
+    private static void initialize() {
         try {
             Path modulePath = ResourceUtils.getByteHookModulePath(BYTEHOOK_EXAMPLE_MODULE_NAME);
-            // Add bytehook module, easy to develop debugging
-            Modules.addModuleResource(modulePath);
-            Modules.initialize();
+            if (null != modulePath) {
+                // Just for the development environment, Add bytehook module, easy to develop debugging
+                Modules.addModuleResource(modulePath);
+                Modules.initialize();
+                // Just to wait for the initialization
+                // It's also possible to remove
+                while (!Modules.initialized) {
+                    ThreadUtil.quietSleep(5);
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.exit(0);
@@ -34,11 +50,6 @@ public class Main {
      * The purpose of disable the initialization of java agent is to add module resource paths in the dev-env
      */
     public static void main(String[] args) {
-        // Just to wait for the initialization
-        // It's also possible to remove
-        // while (!Modules.initialized) {
-        //     ThreadUtil.quietSleep(5);
-        // }
         Example1.sayHello();
         // Maybe will print Hi Lily,
         // Maybe will print Hello Lily
